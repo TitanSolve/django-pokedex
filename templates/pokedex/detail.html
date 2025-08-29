@@ -1,0 +1,45 @@
+{% extends "_base.html" %}
+{% load poke_extras %}
+{% block content %}
+{% if error %}<div class="alert alert-trans">{{ error }}</div>{% endif %}
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="glass p-4 text-center text-white h-100">
+      <img class="img-fluid" alt="{{ pokemon.name }}" src="{{ pokemon|sprite_url }}">
+      <h2 class="mt-3">{{ pokemon.name|capfirst }}</h2>
+      <div class="mb-2">{% for t in pokemon.types %}<span class="poke-badge">{{ t.type.name }}</span>{% endfor %}</div>
+      <div class="text-white-50">Height: {{ pokemon.height }} · Weight: {{ pokemon.weight }}</div>
+      <form class="mt-3" method="get">
+        <div class="input-group">
+          <input class="form-control" name="compare_with" placeholder="Compare with (e.g. charizard)">
+          <button class="btn btn-primary" type="submit"><i class="bi bi-arrow-left-right"></i> Compare</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-7">
+    <div class="glass p-4 text-white mb-3">
+      <h3 class="h5">Base Stats</h3>
+      <div class="row gy-2">
+        {% for s in pokemon.stats %}
+        <div class="col-6">
+          <div class="d-flex justify-content-between"><span class="text-capitalize">{{ s.stat.name }}</span><strong>{{ s.base_stat }}</strong></div>
+          <div class="progress" role="progressbar"><div class="progress-bar" style="width: {{ s.base_stat }}%"></div></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="glass p-4 text-white">
+      <h3 class="h5">Evolution Chain</h3>
+      {% if evolution_names %}
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+          {% for n in evolution_names %}
+            <a class="btn btn-outline-light btn-sm" href="/pokemon/{{ n }}/">{{ n|capfirst }}</a>
+            {% if not forloop.last %}<span class="text-white-50"><i class="bi bi-arrow-right"></i></span>{% endif %}
+          {% endfor %}
+        </div>
+      {% else %}<p class="text-white-50 mb-0">No evolution data available.</p>{% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "_base.html" %}
+{% block content %}
+{% if error %}<div class="alert alert-trans">{{ error }}</div>{% endif %}
+<div class="glass p-4 text-white">
+  <h2 class="mb-3">Average Stats</h2>
+  <form class="row g-3 mb-3" method="get">
+    <div class="col-md-10"><input class="form-control form-control-lg" name="team" placeholder="Comma-separated (max 6): pikachu, bulbasaur, charizard" value="{{ team|join:', ' }}"></div>
+    <div class="col-md-2 d-grid"><button class="btn btn-primary btn-lg"><i class="bi bi-activity"></i> Calculate</button></div>
+  </form>
+  {% if avg %}
+  <div class="table-responsive">
+    <table class="table table-dark align-middle">
+      <thead><tr><th>Stat</th><th>Average</th></tr></thead>
+      <tbody>
+      {% for k, v in avg.items %}<tr><td class="text-capitalize">{{ k }}</td><td>{{ v }}</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <p class="text-white-50 mb-0">Enter up to 6 names to see averages (hp, attack, defense, special-attack, special-defense, speed).</p>
+  {% endif %}
+</div>
+{% endblock %}

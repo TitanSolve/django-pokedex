@@ -1,0 +1,28 @@
+:root{
+  --bg1:#0d0b2e; --bg2:#151a4a; --bg3:#0a2a43;
+  --accent:#7c3aed; --accent2:#22d3ee; --accent3:#34d399;
+  --btn-bg: linear-gradient(135deg, var(--accent), var(--accent2));
+}
+body.animated-bg{
+  min-height: 100vh; color: #fff;
+  background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
+  background-size: 200% 200%; animation: bgShift 18s ease infinite;
+  position: relative; overflow-x: hidden;
+}
+body.animated-bg::before, body.animated-bg::after{
+  content:""; position:absolute; width: 42vmax; height: 42vmax; border-radius: 50%;
+  filter: blur(60px); opacity:.25; z-index:-1;
+}
+body.animated-bg::before{ background: var(--accent); top:-10vmax; left:-10vmax; animation: float1 24s ease-in-out infinite; }
+body.animated-bg::after{ background: var(--accent2); bottom:-12vmax; right:-12vmax; animation: float2 26s ease-in-out infinite; }
+@keyframes bgShift{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes float1{ 0%,100%{transform:translate(0,0)} 50%{transform:translate(8vmax,6vmax)} }
+@keyframes float2{ 0%,100%{transform:translate(0,0)} 50%{transform:translate(-6vmax,-8vmax)} }
+.navbar{ background: transparent; }
+.navbar .navbar-brand{ color:#fff; }
+.btn-primary{ background: var(--btn-bg); border: none; color: #fff; }
+.btn-outline-light{ border-color: rgba(255,255,255,.7); color:#fff; }
+.btn-outline-light:hover{ background: rgba(255,255,255,.15); }
+.glass a, a { color: inherit; text-decoration: none; }
+.glass:hover { transform: translateY(-2px); transition: .2s ease; }
+.progress-bar { background-image: linear-gradient(90deg, var(--accent2), var(--accent3)); }
