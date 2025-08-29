@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+{% block content %}
+{% if error %}<div class="alert alert-trans">{{ error }}</div>{% endif %}
+<div class="glass p-4 text-white">
+  <h2 class="mb-3">Team Coverage Analyzer</h2>
+  <form class="row g-3 mb-3" method="get">
+    <div class="col-md-10"><input class="form-control form-control-lg" name="team" placeholder="Comma-separated (max 6): pikachu, bulbasaur, charizard" value="{{ team|join:', ' }}"></div>
+    <div class="col-md-2 d-grid"><button class="btn btn-primary btn-lg"><i class="bi bi-shield-check"></i> Analyze</button></div>
+  </form>
+  <div class="table-responsive">
+    <table class="table table-dark align-middle">
+      <thead><tr><th>Attack Type</th><th>Weak</th><th>Resist</th><th>Immune</th></tr></thead>
+      <tbody>
+      {% for t, row in summary.items %}
+        <tr><td class="text-capitalize">{{ t }}</td><td>{{ row.weak }}</td><td>{{ row.resist }}</td><td>{{ row.immune }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
